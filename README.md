@@ -50,3 +50,13 @@ Watch: `gulp watch`
 
 Single build: `gulp ddev`
 Watch: `gulp ddevWatch`
+
+## DDEV SSH
+
+You will need to make sure "build-essential" package has been added to your
+config.yaml file. Then run `ddev ssh` and change into the directory containing
+the gulpfile.js you would like to run. Make sure you are running npm >= 19 by
+running `nvm use 19`. If it is not installed, run `nvm install 19`.
+
+Single build: `gulp`
+Watch: `gulp watch`

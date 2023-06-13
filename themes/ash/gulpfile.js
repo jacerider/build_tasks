@@ -5,6 +5,7 @@ const gutil = require('gulp-util');
 const cache = require('gulp-cached');
 const plumber = require('gulp-plumber');
 const fs = require('fs');
+const path = require('path');
 const extend = require('extend');
 const rename = require('gulp-rename');
 const execSync = require('child_process').execSync;
@@ -36,10 +37,13 @@ loadConfig();
 
 function drupal(cb) {
   let command = drushCommand + ' status --format=json';
+  let localRoot = testDir(splitPath(__dirname));
   if (root) {
-    command += ' --root="' + root + '"';
+    localRoot = testDir(splitPath(root));
+    process.chdir(root);
   }
   drupalInfo = JSON.parse(execSync(command).toString());
+  drupalInfo.root = localRoot + '/web';
   cb();
 }
 
@@ -202,9 +206,22 @@ function watch(cb) {
   }
 }
 
+function splitPath(path) {
+  var parts = path.split(/(\/|\\)/);
+  if (!parts.length) return parts;
+  return !parts[0].length ? parts.slice(1) : parts;
+}
+
+function testDir(parts) {
+  if (parts.length === 0) return null;
+  var p = parts.join('');
+  var itdoes = fs.existsSync(path.join(p, '.ddev'));
+  return itdoes ? p.slice(0, -1) : testDir(parts.slice(0, -1));
+}
+
 exports.default = series(drupal, exo, parallel(js, css, componentCss, componentJs));
 exports.watch = series(enableWatch, drupal, exo, parallel(js, css, componentCss, componentJs), watch);
 
 // Should be called outside of DDEV.
-exports.ddev = series(drupal, enableDdev, exo, parallel(js, css, componentCss, componentJs));
-exports.ddevWatch = series(drupal, enableWatch, enableDdev, exo, parallel(js, css, componentCss, componentJs), watch);
+exports.ddev = series(enableDdev, drupal, exo, parallel(js, css, componentCss, componentJs));
+exports.ddevWatch = series(enableWatch, enableDdev, drupal, exo, parallel(js, css, componentCss, componentJs), watch);
