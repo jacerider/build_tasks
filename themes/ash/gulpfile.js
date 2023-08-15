@@ -159,7 +159,7 @@ function componentCss(cb) {
 }
 
 function clearCache(cb) {
-  execSync(drushCommand + ' php-eval "\Drupal::service(\'twig\')->invalidate();" && ' + drushCommand + ' cc render');
+  execSync(drushCommand + " php-eval \Drupal::service(\'exo.alchemist.commands\')->exoComponentUpdateAll()'");
   cb();
 }
 
