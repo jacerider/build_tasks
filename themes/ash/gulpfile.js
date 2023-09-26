@@ -18,7 +18,7 @@ const babel = require('gulp-babel');
 let ddevStatus = false;
 let watchStatus = false;
 let drupalInfo;
-let url = process.env.DDEV_HOSTNAME || null;
+let url = process.env.DDEV_PROJECT + '.' + process.env.DDEV_TLD || null;
 let drushCommand = 'drush';
 let root = gutil.env.root;
 let gulpStylelint = require('gulp-stylelint');
