@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const { parallel, series } = require('gulp');
 const gutil = require('gulp-util');
 const cache = require('gulp-cached');
-const plumber = require('gulp-plumber');
 const fs = require('fs');
 const path = require('path');
 const extend = require('extend');
