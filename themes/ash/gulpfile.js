@@ -1,6 +1,5 @@
 const gulp = require('gulp');
 const { parallel, series } = require('gulp');
-const noop = require('gulp-noop');
 const gutil = require('gulp-util');
 const cache = require('gulp-cached');
 const plumber = require('gulp-plumber');
@@ -74,7 +73,7 @@ function js(cb) {
     }))
     .pipe(uglify())
     .pipe(gulp.dest(config.js.dest))
-    .pipe(watchStatus ? browserSync.stream() : noop());
+    .pipe(watchStatus ? browserSync.stream() : gutil.noop());
 }
 
 function css(cb) {
@@ -92,7 +91,7 @@ function css(cb) {
     }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(config.css.dest))
-    .pipe(watchStatus ? browserSync.stream() : noop())
+    .pipe(watchStatus ? browserSync.stream() : gutil.noop())
     .on('finish', function () {
       return gulp
         .src(config.css.src)
@@ -122,7 +121,7 @@ function componentJs(cb) {
       path.dirname = path.dirname.replace('src/scripts', '');
     }))
     .pipe(gulp.dest(config.components.js.dest))
-    .pipe(watchStatus ? browserSync.stream() : noop());
+    .pipe(watchStatus ? browserSync.stream() : gutil.noop());
 }
 
 function componentCss(cb) {
@@ -143,7 +142,7 @@ function componentCss(cb) {
     }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(config.components.css.dest))
-    .pipe(watchStatus ? browserSync.stream() : noop())
+    .pipe(watchStatus ? browserSync.stream() : gutil.noop())
     .on('finish', function () {
       return gulp
         .src(config.components.css.src)
