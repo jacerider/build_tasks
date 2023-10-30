@@ -1,6 +1,6 @@
 {
-  "name": "mdo",
-  "description": "Plugin implementation of the mdo eXo theme.",
+  "name": "CLIENTCODE",
+  "description": "Plugin implementation of the eXo theme.",
   "private": true,
   "devDependencies": {
     "browser-sync": "^2.27.11",
