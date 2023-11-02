@@ -39,6 +39,9 @@ directory.
 Edit /modules/custom/CLIENTCODE/gulpfile.js and update EXOTHEMENAME to the
 name of the folder found within /modules/custom/CLIENTCODE/css/.
 
+Edit /modules/custom/CLIENTCODE/package.json and update CLIENTCODE to the
+name of the correct client code.
+
 # Building
 
 ## Local
